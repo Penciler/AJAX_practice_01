@@ -1,0 +1,42 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+  <button id="launch" class="my-btn btn-info">Generate a random user</button>
+  <p> 請點擊按鈕新增 user </p>
+  <hr />
+  <div id="list" class="row">
+    
+  </div>
+   <script>
+    var i = 1;
+    
+    $('#launch').click(function() {
+
+      $.ajax({
+        url: 'https://uinames.com/api/?ext',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+          var name = data["name"] + " " + data["surname"];
+          var photo = data["photo"];
+
+          var newUser = $('<div class="col-xs-4"></div>');
+          newUser.append('<p class="num"></p>');
+          newUser.append('<img>');
+          newUser.append('<div class="name"></div>');
+
+          newUser.find("p").html('#' + i);
+          newUser.find("img").attr("src",photo);
+          newUser.find(".name").html(name);
+          $('#list').append(newUser);
+          i++;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
